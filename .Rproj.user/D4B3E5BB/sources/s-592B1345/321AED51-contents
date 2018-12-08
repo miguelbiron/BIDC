@@ -1,0 +1,28 @@
+sample_data = function(N, Tau, rho, median_pd, a){
+  # N: number of individuals
+  # Tau: time steps
+  # rho: default correlation
+  # median_pd: median marginal probability of default
+  # a: AR(1) param for M_t process
+  # output: list with: y  : matrix size N \times Tau of integers in (0,1)
+  #                    x_c: matrix size N \times Tau of critical values
+
+  # sample M_t process
+  M = numeric(Tau)
+  M[1L] = rnorm(1L)
+  for(tau in 2L:Tau) M[tau] = a*M[tau-1L] + sqrt(1-a^2)*rnorm(1L)
+
+  # sample critical values
+  x_c = matrix(rnorm(N*Tau, mean = qnorm(median_pd)),
+               nrow = N)
+
+  # sample y_it
+  y = matrix(NA_integer_, nrow = N, ncol = Tau)
+  for(tau in 1L:Tau) {
+    prob = pnorm((x_c[,tau]-sqrt(rho)*M[tau])/sqrt(1-rho))
+    y[,tau] = 1L*(runif(N) <= prob)
+  }
+
+  p_d = pnorm(x_c) # probit to get probabilities
+  return(list(y=y,p_d=p_d))
+}

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1544233835785.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "483BC630",
+    "lastKnownWriteTime" : 1544231245,
+    "last_content_update" : 1544231245,
+    "path" : "~/projects/MHwGibbs_rho_inf/BIDC/R/MH_within_Gibbs_sampler.R",
+    "project_path" : "R/MH_within_Gibbs_sampler.R",
+    "properties" : {
+        "cursorPosition" : "108,37",
+        "scrollLine" : "126"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

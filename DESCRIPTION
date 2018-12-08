@@ -1,0 +1,15 @@
+Package: BIDC
+Type: Package
+Title: BIDC: Bayesian Inference for Default Correlations
+Version: 0.0.0.9000
+Author: Miguel Biron
+Maintainer: Miguel Biron <miguelbl9@gmail.com>
+Description: The BIDC package contains function to perform Bayesian Inference on
+    the default correlation parameter for credit risk models of the class first
+    proposed in (Vasicek 1987). The methods in this package allow for more
+    general versions of this initial model, where the probability of default is
+    not constant across the portfolio nor time.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1

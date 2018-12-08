@@ -1,0 +1,21 @@
+---
+title: "BIDC: Bayesian Inference for Default Correlations"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installation
+
+```{r eval=FALSE}
+if (!require(devtools)) {
+    install.packages('devtools')
+}
+devtools::install_github('miguelbiron/BIDC')
+```
+
+## TODO
+
+- Add more models
