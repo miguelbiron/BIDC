@@ -1,7 +1,6 @@
 /home/mbiron/projects/MHwGibbs_rho_inf/BIDC/.Rbuildignore="A160AE22"
-/home/mbiron/projects/MHwGibbs_rho_inf/BIDC/.gitignore="F4E7DD49"
 /home/mbiron/projects/MHwGibbs_rho_inf/BIDC/DESCRIPTION="E1CCF589"
 /home/mbiron/projects/MHwGibbs_rho_inf/BIDC/NAMESPACE="4A4FB922"
 /home/mbiron/projects/MHwGibbs_rho_inf/BIDC/R/MH_within_Gibbs_sampler.R="8F87458"
-/home/mbiron/projects/MHwGibbs_rho_inf/BIDC/README.Rmd="A650B657"
+/home/mbiron/projects/MHwGibbs_rho_inf/R/fit_simulated_data.R="81D77532"
 /home/mbiron/projects/MHwGibbs_rho_inf/R/sample_data.R="8E5EE14F"
