@@ -11,7 +11,7 @@ devtools::install_github('miguelbiron/BIDC')
 
 ## Description
 
-Check out [this blog entry](https://miguelbiron.github.io/2018/12/07/bidc-bayesian-inference-for-default-correlations/) where I explain how this package works and give a couple of examples.
+Check out [this blog entry](https://miguelbiron.github.io/2018/12/07/bidc-bayesian-inference-for-default-correlations/) where I explain how this package works and also give a couple of examples.
 
 ## TODO
 

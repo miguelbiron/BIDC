@@ -4,7 +4,7 @@
 \alias{bidc_pd}
 \title{Bayesian Inference of Default Correlations Using Probabilities of Default}
 \usage{
-bidc_pd(S = 2000L, y, p_d, verbose = 0L, init = NULL)
+bidc_pd(S = 2000L, y, p_d, b = 50, verbose = 0L, init = NULL)
 }
 \arguments{
 \item{S}{number of iterations for the chain.}
@@ -15,11 +15,15 @@ if the n-th client at time t defaulted, and 0 otherwise.}
 \item{p_d}{matrix with probability of default of the n-th client at
 time t.}
 
+\item{b}{shape2 parameter of the beta proposal for rho. Default value is 50
+tends to work well.}
+
 \item{verbose}{integer. Function prints every \code{verbose} iterations. The
 default value of 0L prints no output.}
 
 \item{init}{an optional initialization for the chain. If \code{NULL}
-(default), the chain is initialized using the priors.}
+(default), the M_t's are initialized from the prior and rho from a beta close
+to 0.5.}
 }
 \value{
 a matrix of size \code{S x (tau+1)}, where the first tau columns

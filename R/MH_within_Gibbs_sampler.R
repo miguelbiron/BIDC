@@ -34,19 +34,23 @@ log_p_rho = function(rho, M, y, x_c){
 # MH within Gibbs updates
 ###############################################################################
 
-update_rho = function(rho, M, y, x_c){
+# function for getting shape1 for dbeta based on shape2 and mode
+get_a = function(m, b) {(m*(b-2)+1)/(1-m)}
+
+update_rho = function(rho, M, y, x_c, b){
   # rho: current default correlation (real in (0,1))
   # M: common factors (length Tau)
   # y: observations (matrix size N\times Tau ints in {0,1})
   # x_c: critical values (matrix size N\times Tau)
+  # b: parameter shape2 for the proposal (higher -> more concentrated on rho)
   # output: new rho
 
   # proposal distribution sets mode at current value
-  r = rbeta(n=1L, shape1 = 2, shape2 = 1/rho) # proposal
+  r = rbeta(n=1L, shape1 = get_a(rho,b), shape2 = b) # proposal
   lp = log_p_rho(rho=r, M=M, y=y, x_c=x_c) # full conditional at proposal
-  lq = dbeta(r, shape1 = 2, shape2 = 1/rho, log = TRUE) # density at proposal
+  lq = dbeta(r, shape1 = get_a(rho,b), shape2 = b, log = TRUE) # density at proposal
   lp_stay = log_p_rho(rho=rho, M=M, y=y, x_c=x_c) # full conditional at stay
-  lq_stay = dbeta(rho, shape1=2, shape2=1/r, log=TRUE) # density of reverse proposal
+  lq_stay = dbeta(rho, shape1=get_a(r,b), shape2=b, log=TRUE) # density of reverse proposal
   l_a_ratio = min(0, (lp-lq)-(lp_stay-lq_stay))
   p_accept = exp(l_a_ratio)
   accept = (runif(1L) <= p_accept)
@@ -94,7 +98,7 @@ initialize_chain = function(Tau){
   # initalize latent variables
   values = numeric(Tau+1L)
   values[1L:Tau] = rnorm(Tau)
-  values[Tau+1L] = runif(1L)
+  values[Tau+1L] = rbeta(n=1L, shape1 = get_a(0.5,10), shape2 = 10)
 
   return(values)
 }
@@ -127,16 +131,19 @@ initialize_chain = function(Tau){
 #' if the n-th client at time t defaulted, and 0 otherwise.
 #' @param p_d matrix with probability of default of the n-th client at
 #' time t.
+#' @param b shape2 parameter of the beta proposal for rho. Default value is 50
+#' tends to work well.
 #' @param verbose integer. Function prints every \code{verbose} iterations. The
 #' default value of 0L prints no output.
 #' @param init an optional initialization for the chain. If \code{NULL}
-#' (default), the chain is initialized using the priors.
+#' (default), the M_t's are initialized from the prior and rho from a beta close
+#' to 0.5.
 #'
 #' @return a matrix of size \code{S x (tau+1)}, where the first tau columns
 #' correspond to the latent factors, and the last one contains samples for rho.
 #'
 #' @export
-bidc_pd = function(S = 2000L, y, p_d, verbose = 0L, init = NULL){
+bidc_pd = function(S = 2000L, y, p_d, b = 50, verbose = 0L, init = NULL){
 
   Tau = ncol(y) # number of timesteps
   stopifnot(0 <= min(p_d) && max(p_d) <= 1) # sanity check
@@ -171,7 +178,8 @@ bidc_pd = function(S = 2000L, y, p_d, verbose = 0L, init = NULL){
       rho    = chain[s - 1L, Tau + 1L],
       M      = chain[s, 1L:Tau],
       y      = y,
-      x_c    = x_c
+      x_c    = x_c,
+      b      = b
     )
 
     # print status
