@@ -1,4 +1,4 @@
-`BIDC`: Bayesian Inference for Default Correlations
+# `BIDC`: Bayesian Inference for Default Correlations
 
 ## Installation
 
